@@ -1,7 +1,14 @@
 simplify error handling
 tryout fxhashmap instead of Ahash
-change base64 module with encoding
 review encoding to compact it is doing a bunch of allocation and clone
-reader and writer in format are stupid
 
-handle blockhash, add blockhash registry init per epoch with 432000 x 32 bytes
+//first pass uncompress if needed
+//do stuff (avoid zstd decompress x3)
+//delete uncompressed (if was decompressed)
+this weridly did not work as planed
+
+build meta log BytesTable where we store bs64 decoded data
+or at least store multiple Strid for Program data log and returned data as they can return multiple bs64
+that will give us a better dedup and compression capability
+- future optimisation may be intruction data pubk detection and replace with id.
+
