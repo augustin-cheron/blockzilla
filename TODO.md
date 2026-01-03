@@ -1,14 +1,19 @@
-simplify error handling
-review encoding to compact it is doing a bunch of allocation and clone
+# TODO
 
-//first pass uncompress if needed
-//do stuff (avoid zstd decompress x3)
-//delete uncompressed (if was decompressed)
-this weridly did not work as planed
+- Simplify error handling  
+  - Single error type per crate  
+  - Add context only at I/O and top-level boundaries  
 
-build meta log BytesTable where we store bs64 decoded data
-or at least store multiple Strid for Program data log and returned data as they can return multiple bs64
-that will give us a better dedup and compression capability
-- future optimisation may be intruction data pubk detection and replace with id.
+- Handle base64 logs  
+  - Build a `BytesTable` for base64-decoded log data  
+  - Store multiple `StrId` entries for program data logs and return data (multiple base64 blobs per tx)  
+  - Future: detect pubkeys inside instruction/return data and replace them with ids  
 
-Optimise registry builder by decoding up to log including zstd, so zstd stream decode up to log.
+- Split archive data  
+  - Separate data required for replay from runtime-only data  
+  - Runtime-only includes logs, inner instructions, return data  
+
+- Try new encodings  
+  - Review compact encoding to remove unnecessary allocations and clones  
+  - Evaluate `wincode` for low-allocation streaming encoding  
+  - Evaluate `rkyv` for zero-copy / archive-friendly layouts  
