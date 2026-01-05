@@ -17,7 +17,16 @@ tar cz --no-xattrs --exclude target --exclude .git --exclude epochs --exclude bl
 sudo sysctl -w kernel.perf_event_paranoid=1
 
 cargo flamegraph --profile release-debug --bin reader --features="reader" --  --decode-tx ./epochs/epoch-0.car.zst
+
+cargo flamegraph --profile release-debug  --bin reader --features reader -- --decode-tx ./epochs/epoch-9.car 
 ```
+
+## mac only
+
+``
+cargo instruments -t alloc --profile release-debug  --bin reader --features reader -- --decode-tx ./epochs/epoch-9.car 
+cargo instruments -t time --profile release-debug  --bin reader --features reader -- --decode-tx ./epochs/epoch-9.car 
+``
 
 ## Strings analysys
 
